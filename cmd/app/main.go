@@ -87,7 +87,7 @@ func main(){
 type Expense struct{
 	Id	int			`json:"id"`
 	Date	string	`json:"date"`
-	Descr	string	`json:"description`
+	Descr	string	`json:"description"`
 	Amount	int		`json:"amount"`
 }
 
