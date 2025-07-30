@@ -26,7 +26,7 @@ func main(){
 	action := args[1]
 
 	switch action{
-	case "list":
+	case "list", "l":
 		//вывод всех трат
 
 		if len(args) > 2{
@@ -34,11 +34,11 @@ func main(){
 		}
 		printExpenses(expenses)
 
-	case "add":
+	case "add", "a":
 		//добавление траты
 
-		desc := flag.String("description", "", "a description for expense")//парсим флаги
-		amount := flag.Int("amount", 0, "an amount of money")
+		desc := flag.StringP("description", "d", "", "a description for expense")//парсим флаги
+		amount := flag.IntP("amount", "a", 0, "an amount of money")
 		flag.Parse()
 		//проверяем что параметры верно введены
 		if *desc == "" || *amount == 0{
@@ -56,7 +56,7 @@ func main(){
 
 		fmt.Printf("Expense added succesfully (ID: %d)", len(expenses))
 
-	case "summary":
+	case "summary", "s":
 		//суммарное колво потраченных денжат
 		if len(args) > 2{
 			log.Fatal("wrong input")
@@ -65,8 +65,8 @@ func main(){
 		sum = getSum(expenses)
 		fmt.Printf("Total expenses: $%d", sum)
 
-	case "delete":
-		id := flag.Int("id", -1, "an id for delete expense")
+	case "delete", "d":
+		id := flag.IntP("id", "i", -1, "an id for delete expense")
 		flag.Parse()
 		*id--
 		if *id < 0 || *id >= len(expenses){
@@ -140,9 +140,9 @@ func writeToFileJson(exps []Expense){
 func greeting(){
 	fmt.Println("\t\tExpense Tracker")
 	fmt.Println("Use: tracker [command] [flags])")
-	fmt.Println("command: add --descritption \"something\" --amount \"some\"")
-	fmt.Println("\t list //list of expenses")
-	fmt.Println("\t summary // summary expenses")
-	fmt.Println("\t delete --id 2 //delete some expense")
+	fmt.Println("command: add --description|-d \"something\" --amount|-a \"some\"")
+	fmt.Println("\t list|l //list of expenses")
+	fmt.Println("\t summary|s // summary expenses")
+	fmt.Println("\t delete|d --id|-i 2 //delete some expense")
 }
 
